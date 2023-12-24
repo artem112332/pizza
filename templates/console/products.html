@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizz&Duck</title>
-    <link rel="stylesheet" href="/console/css/normalize.css">
-    <link rel="stylesheet" href="/console/css/style.css">
+    <link rel="stylesheet" href="/static/console/css/normalize.css">
+    <link rel="stylesheet" href="/static/console/css/style.css">
+    <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
-<body class="order-body">
-    <header class="order-header">
-        <div class="order-header-content flex">
-            <div class="logo"></div>
-            <a href="login.html" class="text-logo">Pizz&Duck</a>
+<body>
+    <header class="header">
+        <div class="header-logo flex">
+            <a href="/manager"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
+            <a href="/manager" class="header-text">Pizz&Duck</a>
         </div>
     </header>
 
@@ -25,40 +26,53 @@
                     <th colspan="1" class="staff-table-title">Наименование продукта
                         <a href="#" class="staff-tick-link">
                             <svg width="34" height="20" viewBox="0 0 34 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="15.9393" y1="18.9098" x2="32.9099" y2="1.93924" stroke="black" stroke-width="3"/>
-                                <line x1="1.06066" y1="1.93934" x2="18.0312" y2="18.9099" stroke="black" stroke-width="3"/>
+                                <line x1="15.9393" y1="18.9098" x2="32.9099" y2="1.93924" stroke="black" stroke-width="3"></line>
+                                <line x1="1.06066" y1="1.93934" x2="18.0312" y2="18.9099" stroke="black" stroke-width="3"></line>
                             </svg>
                         </a>
                     </th>
                     <th colspan="1" class="staff-table-title">Количество
-                        <a href="#" class="staff-tick-link">
+                        <a class="staff-tick-link">
                             <svg width="34" height="20" viewBox="0 0 34 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="15.9393" y1="18.9098" x2="32.9099" y2="1.93924" stroke="black" stroke-width="3"/>
-                                <line x1="1.06066" y1="1.93934" x2="18.0312" y2="18.9099" stroke="black" stroke-width="3"/>
+                                <line x1="15.9393" y1="18.9098" x2="32.9099" y2="1.93924" stroke="black" stroke-width="3"></line>
+                                <line x1="1.06066" y1="1.93934" x2="18.0312" y2="18.9099" stroke="black" stroke-width="3"></line>
                             </svg>
                         </a>
                     </th>
                 </tr>
+                {% for product in products %}
+                {% if product.amount > product.critical_amount %}
                 <tr class="staff-table-row">
                     <td class="staff-table-content flex">
-                        <a href="#" class="staff-table-text-style">
-                            <span class="staff-table-text available">Помидорки</span>
+                        <a class="staff-table-text-style">
+                            <span class="staff-table-text available">{{ product.name }}</span>
                         </a>
                     </td>
                     <td class="staff-table-content">
-                        <div class="products-weight-available">5 кг</div>
+                        {% if product.amount >= 1 %}
+                        <div class="products-weight-available">{{ product.amount }} кг</div>
+                        {% else %}
+                        <div class="products-weight-available">{{ product.amount*1000 }} г</div>
+                        {% endif %}
                     </td>
                 </tr>
+                {% else %}
                 <tr class="staff-table-row">
                     <td class="staff-table-content flex">
-                        <a href="#" class="staff-table-text-style">
-                            <span class="staff-table-text lack">Сырок</span>
+                        <a class="staff-table-text-style">
+                            <span class="staff-table-text lack">{{ product.name }}</span>
                         </a>
                     </td>
                     <td class="staff-table-content">
-                        <div class="products-weight-lack">1 кг</div>
+                        {% if product.amount >= 1 %}
+                        <div class="products-weight-lack">{{ product.amount }} кг</div>
+                        {% else %}
+                        <div class="products-weight-lack">{{ product.amount*1000 }} г</div>
+                        {% endif %}
                     </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
             </table>
         </div>
     </main>

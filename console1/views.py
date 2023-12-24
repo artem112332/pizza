@@ -1,71 +1,163 @@
 from django.shortcuts import render
+from console1.models import Worker, Order, Product, Pizza, Recipe
 
-
-def all_orders(request):
-
-    return render(request, 'console/all_orders.html')
-
-
-def all_staff(request):
-
-    return render(request, 'console/all_staff.html')
-
-
-def chef_all_orders(request):
-
-    return render(request, 'console/chef_all_orders.html')
-
-
-def chef_order(request):
-
-    return render(request, 'console/chef_order.html')
-
-
-def completed_order_info(request):
-
-    return render(request, 'console/completed_order_info.html')
-
-
-def completed_orders(request):
-
-    return render(request, 'console/completed_orders.html')
-
-
-def employees(request):
-
-    return render(request, 'console/employees.html')
+pizzas_names = [pizza.name for pizza in Pizza.objects.all()]
 
 
 def login(request):
-
     return render(request, 'console/login.html')
 
 
 def manager(request):
-
     return render(request, 'console/manager.html')
 
 
+def all_staff(request):
+    workers = Worker.objects.all()
+
+    return render(request, 'console/all_staff.html',
+                  context={'workers': workers})
+
+
+def staff(request, employee_id):
+    employee = Worker.objects.get(worker_id=employee_id)
+
+    return render(request, 'console/staff.html', {'employee': employee})
+
+
+def all_orders(request):
+    all_orders_list = Order.objects.all()
+    orders = []
+    for order_info in all_orders_list:
+        if order_info.status in ["Ожидает", "Готовится", "Отменён", "Готов"]:
+            orders.append(order_info)
+    new_orders_count = Order.objects.filter(status='Принят').count()
+
+    return render(request, 'console/all_orders.html',
+                  context={'orders': orders, 'new_orders_count': new_orders_count})
+
+
+def order(request, order_id):
+    order_info = Order.objects.get(order_id=order_id)
+    delivery_info = order_info.delivery_info
+    customer = order_info.customer
+    pizzas_amounts = {f'{pizzas_names[0]}': order_info.pizza_1_amount,
+                      f'{pizzas_names[1]}': order_info.pizza_2_amount,
+                      f'{pizzas_names[2]}': order_info.pizza_3_amount,
+                      f'{pizzas_names[3]}': order_info.pizza_4_amount,
+                      f'{pizzas_names[4]}': order_info.pizza_5_amount}
+
+    return render(request, 'console/order.html',
+                  context={'order': order_info, 'delivery_info': delivery_info, 'customer': customer,
+                           'pizzas_amounts': pizzas_amounts, 'pizzas': pizzas_names, })
+
+
 def new_order(request):
+    new_orders = Order.objects.filter(status='Принят')
+    if len(new_orders) > 0:
+        new_order_info = new_orders[0]
+        delivery_info = new_order_info.delivery_info
+        customer = new_order_info.customer
 
-    return render(request, 'console/new_order.html')
+        pizzas_amounts = {f'{pizzas_names[0]}': new_order_info.pizza_1_amount,
+                          f'{pizzas_names[1]}': new_order_info.pizza_2_amount,
+                          f'{pizzas_names[2]}': new_order_info.pizza_3_amount,
+                          f'{pizzas_names[3]}': new_order_info.pizza_4_amount,
+                          f'{pizzas_names[4]}': new_order_info.pizza_5_amount}
+
+        return render(request, 'console/new_order.html',
+                      context={'new_order': new_order_info, 'customer': customer, 'delivery_info': delivery_info,
+                               'pizzas_amounts': pizzas_amounts, 'pizzas': pizzas_names})
+
+    else:
+        return render(request, 'console/new_order.html', context={'new_order': None})
 
 
-def order(request):
+def send_to_kitchen(request, order_id):
+    order_to_send = Order.objects.get(order_id=order_id)
+    order_to_send.status = 'Готовится'
+    order_to_send.save()
+    request.GET = '/new_order/'
 
-    return render(request, 'console/order.html')
+    return new_order(request)
+
+
+def completed_orders(request):
+    orders = Order.objects.filter(status='Завершён')
+    delivery_infos = [order_info.delivery_info for order_info in orders]
+
+    return render(request, 'console/completed_orders.html',
+                  context={'orders': orders, 'delivery_infos': delivery_infos})
+
+
+def completed_order_info(request, order_id):
+    order_info = Order.objects.get(order_id=order_id)
+    chef = Worker.objects.get(worker_id=order_info.chef.worker_id)
+
+    return render(request, 'console/completed_order_info.html', context={'order': order_info, 'chef': chef})
 
 
 def products(request):
+    all_products = Product.objects.all()
 
-    return render(request, 'console/products.html')
-
-
-def staff(request):
-
-    return render(request, 'console/staff.html')
+    return render(request, 'console/products.html', {'products': all_products})
 
 
-def storage(request):
+def chef_all_orders(request):
+    all_orders_list = Order.objects.all()
+    orders = []
+    for order_info in all_orders_list:
+        if order_info.status in ["Ожидает", "Готовится"]:
+            orders.append(order_info)
 
-    return render(request, 'console/storage.html')
+    return render(request, 'console/chef_all_orders.html',
+                  context={'orders': orders})
+
+
+def chef_order(request, order_id):
+    order_info = Order.objects.get(order_id=order_id)
+    recipes = {f'{recipe.pizza.name}': {f'{recipe.product_1}': recipe.product_1_amount,
+                                        f'{recipe.product_2}': recipe.product_2_amount,
+                                        f'{recipe.product_3}': recipe.product_3_amount,
+                                        f'{recipe.product_4}': recipe.product_4_amount,
+                                        f'{recipe.product_5}': recipe.product_5_amount,
+                                        f'{recipe.product_6}': recipe.product_6_amount,
+                                        f'{recipe.product_7}': recipe.product_7_amount,
+                                        f'{recipe.product_8}': recipe.product_8_amount,
+                                        f'{recipe.product_9}': recipe.product_9_amount,
+                                        f'{recipe.product_10}': recipe.product_10_amount,
+                                        f'{recipe.product_11}': recipe.product_11_amount,
+                                        f'{recipe.product_12}': recipe.product_12_amount,
+                                        f'{recipe.product_13}': recipe.product_13_amount,
+                                        f'{recipe.product_14}': recipe.product_14_amount,
+                                        f'{recipe.product_15}': recipe.product_15_amount
+                                        } for recipe in Recipe.objects.all()}
+
+    pizzas_amounts = {f'{pizzas_names[0]}': order_info.pizza_1_amount,
+                      f'{pizzas_names[1]}': order_info.pizza_2_amount,
+                      f'{pizzas_names[2]}': order_info.pizza_3_amount,
+                      f'{pizzas_names[3]}': order_info.pizza_4_amount,
+                      f'{pizzas_names[4]}': order_info.pizza_5_amount}
+
+    return render(request, 'console/chef_order.html',
+                  context={'order': order_info, 'pizzas_amounts': pizzas_amounts, 'pizzas': pizzas_names,
+                           'recipes': recipes})
+
+
+def courier_all_orders(request):
+    orders = Order.objects.filter(status='Готов')
+
+    return render(request, 'console/courier_all_orders.html',
+                  context={'orders': orders})
+
+
+def courier_order(request, order_id):
+    order_info = Order.objects.get(order_id=order_id)
+    pizzas_amounts = {f'{pizzas_names[0]}': order_info.pizza_1_amount,
+                      f'{pizzas_names[1]}': order_info.pizza_2_amount,
+                      f'{pizzas_names[2]}': order_info.pizza_3_amount,
+                      f'{pizzas_names[3]}': order_info.pizza_4_amount,
+                      f'{pizzas_names[4]}': order_info.pizza_5_amount}
+
+    return render(request, 'console/courier_order.html',
+                  context={'order': order_info, 'pizzas_amounts': pizzas_amounts, 'pizzas': pizzas_names})

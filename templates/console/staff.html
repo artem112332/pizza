@@ -1,25 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizz&Duck</title>
-    <link rel="stylesheet" href="/console/css/normalize.css">
-    <link rel="stylesheet" href="/console/css/style.css">
+    <link rel="stylesheet" href="/static/console/css/normalize.css">
+    <link rel="stylesheet" href="/static/console/css/style.css">
+    <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
-<body class="order-body">
-    <header class="order-header">
-        <div class="order-header-content flex">
-            <div class="logo"></div>
-            <a href="login.html" class="text-logo">Pizz&Duck</a>
+<body>
+    <header class="header">
+        <div class="header-logo flex">
+            <a href="/manager"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
+            <a href="/manager" class="header-text">Pizz&Duck</a>
         </div>
     </header>
+
     <main class="main">        
-        <div class="container order-content">
+        <div class="container order-container">
             <h2 class="staff-title flex">
                 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M198.5 100C198.5 154.4 154.4 198.5 100 198.5C45.5999 198.5 1.5 154.4 1.5 100C1.5 45.5999 45.5999 1.5 100 1.5C154.4 1.5 198.5 45.5999 198.5 100Z" fill="#999787" stroke="black" stroke-width="3"></path>
@@ -29,39 +30,43 @@
                     </mask>
                     <path d="M170 161.487C170 156.429 168.189 151.421 164.672 146.748C161.154 142.076 155.998 137.83 149.497 134.254C142.997 130.677 135.281 127.841 126.788 125.905C118.295 123.97 109.193 122.973 100 122.973C90.8075 122.973 81.7049 123.97 73.2122 125.905C64.7194 127.841 57.0026 130.677 50.5025 134.254C44.0024 137.83 38.8463 142.076 35.3284 146.748C31.8106 151.421 30 156.429 30 161.487L100 161.487H170Z" fill="#999787" stroke="black" stroke-width="10" mask="url(#path-3-inside-1_82_322)"></path>
                 </svg>
-                <span class="staff-table-text-style">ФИО</span>
-                <a href="all_staff.html" class="exit-button">
-                    <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="15.234" y1="31.5083" x2="31.3036" y2="12.3572" stroke="#FFC700" stroke-width="2"></line>
-                        <circle cx="22.5" cy="22.5" r="22" fill="#FFC700" fill-opacity="0.13" stroke="#FFC700"></circle>
-                        <line x1="15.766" y1="12.3572" x2="31.8357" y2="31.5083" stroke="#FFC700" stroke-width="2"></line>
+                <span class="staff-table-text-style">{{ employee.full_name }}</span>
+                <a href="/all_staff" class="exit-button">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect width="50" height="50" fill="url(#pattern0)"></rect>
+                        <defs>
+                        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0_150_3" transform="scale(0.0104167)"></use>
+                        </pattern>
+                        <image id="image0_150_3" width="96" height="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAFcklEQVR4nO1dS4tcRRT+0IUaFwafG1/Rna6E4EpQzEQ3Bl+o6MK1MSpIUH+FkSQGURTRZXY+Q4zQoHadnmRoYxQi6sSoGRU06ZksxCyST6pue5mxzUz31KnHvVMfHBgmk6pzv1P3VN1Tp04BBQUFBQUFBQUFBQUFGYFdXM0u7qXgORrsoeBTCo7QYJaCUzQ446T62f7uCAUH3N8aPMse7rFtpH6OxoCHcSkNHqRgFwVf0+AcBfSSqg3b1k528QBnsC71c2YFEhdQcAcNXqfgtDfhK8tfFOylwRbuxYVYq6DBJTR4hoLjEUg/39vxI7vYZnXBGnMzL9Lg92TEjxriNxq8YHVDm+Fe+5QjXlaUEzR4Em0DD+ImCvZlQDDHfCM+Yg8b0AZQ8BAFg+SkysRyml08jqaCHVzsln7piaTn2/Bu45au/AxX0eBQcvJETaY5gyvRBLCLGyj4NgPSqCw/8AvcjJzBadxKwVwGZDGQnGAPtyBH8CCuo8HPGZDEwGIH2I3ICdY/ttTt8DzyPQXXIKOQQpsmXI4lBj270svBAG8kJ0OSGWFPavIfTU6CJDfCEynDCzHCx8xaDOaThC1o8GHyh5dsZF9c8gUPZ/DQzEp6uD9mPF9zvT+gwVTUlZTty/apGyQ8HiVmRMFLikTM0+B21+4MLnMxl/AG6NPgctdnF7dRcFKx7e0xIpy/apP/LyIYoSa/7lPTCNXOWrjtTZfqEYj8CEYYIb/uU/dN2IqA2Qsa24kDTmPjsn11sF51TrBtdbB+2T6nsVFlTjA4ZrnSN0AXm5TImBqrv46SEcYgv+6zmpg1jH6XN+EjygneCe0KArijmH0tlregvvTU/eqNQUw/Efn2rVtQXZIO0wW1yJ/cNXQmdEch2x5fhy3exNdKVrmaugqGG6X9ZCN/qezwJr5W1OCbQEpSmbBcyLdvwGFv4usUcY0s5dAuw2Tgdpbqc04lk2KYnx9OUVEZvfmM/FUsuZdX2B6OiGMArpLIPMm30sU2fwNUJ1NiGYATu5Kc3M6o7PY3QHUsiLkaIWPy7XN84q+8Pd4TW3FxMrZrycrtLDXAVxoGSJnP3/cxQlLyKwMc0zCA5oZFNCMwNfmVAf7wN0B1DJRNMgJzIL+Sv4sBpOkGKC6IaV1QmYSZehIuy1BJuww9EN13mtZ8iO33V97g1VzJZ/6hiF3+BijBOKYNxpVwNNOGo8uGDFdJ/lm1o62BV0L9Vm5JCr70Jr5WNtyJ935rN+UNXvYmvlbUVprSV/BQq9NSurjPm/hayRmsK4lZmGRwLahnSdPg7YzdDjPoa7G86U34iII93K3ketqfnGtwpzfh/5uebmus+SvY9vT02SDp6U7JqsieBiHtPaBh8FQQ8p2i5YgSkx5RckawFQ/1XMN8qw7pGTwflPxFZwV+UiRk0IpjqvZoUqz6o0HOC0jDRfM8wFhGEHyQ/KElEzF4Lyr5zgA9bHBffKkfXpLLwNbJi24AZwSDRzIggEkldW1RCl5LToIkE/8tR5Vvgzyy0BhZDD/GRcioaN/RDEhhFDH4LrubOdjDtcrfB8xU5pJNuivBFjV1xU3Tk8Q1V7j1P6WL2+iOjvJzXI8mwM0Jtq5metKoJIbTuAJNgl0htKZ8vWnwHTPDuNGpBhK/QMFjaANsseuGxY7ez3al432Jj862JgON+l9seAVtxjDFZbta8T9RkTm7mdK4q0oUQhhPu42MdCPe3j+5NZuQQuKrDHfS4M8IpC8MVzZTwbIXmgpWdxHYy95esfV2lC7zPOvaEuyw6YKNXlImCvJtdvc9Cnbb2gtDw1jXcXLRdbb259nhv+13f1v9n82Nuf2ooKCgoKCgoKCgoABrBf8AT6ymUGKDoXQAAAAASUVORK5CYII="></image>
+                        </defs>
                     </svg>
                 </a>
             </h2>
-            <div class="flex">
-                <div>
+            <div class="order-content flex">
+                <div class="order-content-left">
                     <p class="order-info">
-                        <span class="order-info-style">Должность:</span> повар
+                        <span class="order-info-style">Должность:</span> {{employee.post}}
                     </p>
                     <p class="order-info">
-                        <span class="order-info-style">Дата рождения:</span> 16.11.2023
+                        <span class="order-info-style">Дата рождения:</span> {{ employee.birth_date }}
                     </p>
                     <p class="order-info">
-                        <span class="order-info-style">Телефон:</span> +77779997799
+                        <span class="order-info-style">Телефон:</span> {{ employee.phone_number }}
                     </p>
                     <p class="order-info">
-                        <span class="order-info-style">Первый рабочий день:</span> 16.11.2023
+                        <span class="order-info-style">Первый рабочий день:</span> {{ employee.first_work_day }}
                     </p>
                 </div>
-                <div class="order-info-column">
+                <div class="order-content-right">
                     <p class="order-info">
-                        <span class="order-info-style">Пол:</span> мужской
+                        <span class="order-info-style">Пол:</span> {{ employee.gender }}
                     </p>
                     <p class="order-info">
-                        <span class="order-info-style">Почта:</span> fio@gmail.ru
+                        <span class="order-info-style">Почта:</span> {{ employee.email }}
                     </p>
                     <p class="order-info">
-                        <span class="order-info-style">Заработная плата:</span> 1 000 000р
+                        <span class="order-info-style">Заработная плата:</span> {{ employee.salary }}
                     </p>
                 </div>
             </div>

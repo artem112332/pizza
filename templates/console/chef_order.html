@@ -4,56 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizz&Duck</title>
-    <link rel="stylesheet" href="/console/css/normalize.css">
-    <link rel="stylesheet" href="/console/css/style.css">
+    <link rel="stylesheet" href="/static/console/css/normalize.css">
+    <link rel="stylesheet" href="/static/console/css/style.css">
+    <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
-<body class="order-body">
-    <header class="order-header">
-        <div class="order-header-content flex">
-            <div class="logo"></div>
-            <a href="login.html" class="text-logo">Pizz&Duck</a>
+<body>
+    <header class="header">
+        <div class="header-logo flex">
+            <a href="#"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
+            <a href="/chef_all_orders" class="header-text">Pizz&Duck</a>
         </div>
     </header>
 
     <main class="main">
-        <div class="container order-content">
+        <div class="container order-container">
             <div class="flex">
-                <h2 class="order-title">
-                    Заказ №1
-                </h2>
-                <div class="status-order">
-                    <span>Статус заказа</span>
-                </div>
+                <h2 class="order-title">Заказ №{{ order.order_id }}</h2>
             </div>
             
-            <div class="flex">
+            <div class="order-content flex">
                 <div>
                     <p class="order-info">
-                        <span class="order-info-style">Повар:</span> ФИО и телефон
+                        <span class="order-info-style">Повар:</span> {{ order.chef.name }}
                     </p>
+
                     <p class="order-info">
-                        <span class="order-info-style">Наименование товара:</span> Пицца
+                       <span class="order-info-style">Список пицц:&nbsp;&nbsp;</span><br>
+                        {% for pizza_name in pizzas %}
+                            {% if pizzas_amounts[pizza_name] > 0 %}
+                                "{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.:<br>
+                                {% for key in recipes[pizza_name].keys() %}
+                                    {{ key }} - {{ recipes[pizza_name][key]}}г.<br>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                     </p>
-                    <p class="order-info indent">
-                        <span class="order-info-style">Продукты:</span> тесто
-                    </p>
-                    <p class="order-info indent">
-                        <span class="order-info-style">Комментарий к заказу:</span> без перца 
-                    </p>
+
                     <p class="order-info">
-                        <span class="order-info-style">Стоимость:</span> 1000р
+                        <span class="order-info-style">Комментарий к заказу:</span>
+                        {% if order.comments != None %}
+                            {{ order.comments }}
+                        {% endif %}
                     </p>
+
                 </div>
-                <div class="order-info-column">
-                    <p class="order-info">
-                        <span class="order-info-style">Информация о доставке:</span> адрес, дата и время
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Курьер:</span> ФИО и телефон
-                    </p>
+                <div class="order-content-right">
+                    <div class="status-order">
+                    <span>Готов</span>
+                    </div>
+                    <div class="status-order">
+                    <span>Отменить</span>
+                    </div>
                 </div>
             </div>
         </div>

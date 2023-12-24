@@ -16,34 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 
-from console1.views import all_orders, all_staff, chef_all_orders, chef_order, \
-    completed_order_info, completed_orders, employees, login, manager, new_order, \
-    order, products, staff, storage
+from console1.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login),
-    path('all_orders/', all_orders),
-    path('all_orders/login.html', login),
-    path('all_staff/', all_staff),
-    path('all_staff/login.html', login),
-    path('chef_all_orders', chef_all_orders),
-    path('chef_all_orders/login.html', login),
-    path('chef_order/', chef_order),
-    path('completed_order_info/', completed_order_info),
-    path('completed_orders/', completed_orders),
-    path('employees/', employees),
-    path('login.html/', login),
     path('manager/', manager),
-    path('manager/products.html', products),
-    path('manager/all_orders.html', all_orders),
-    path('manager/all_staff.html', all_staff),
-    path('manager/completed_orders.html', completed_orders),
-    path('manager/new_order.html', new_order),
+    path('all_staff/', all_staff),
+    path('all_staff/<int:employee_id>', staff),
+    path('all_orders/', all_orders),
     path('new_order/', new_order),
-    path('order/', order),
+    path('send_to_kitchen/<int:order_id>', send_to_kitchen),
+    path('all_orders/<int:order_id>', order),
     path('products/', products),
-    path('staff/', staff),
-    path('storage/', storage),
-]
+    path('completed_orders/', completed_orders),
+    path('completed_orders/<int:order_id>', completed_order_info),
+    path('completed_order_info/', completed_order_info),
+    path('chef_all_orders/', chef_all_orders),
+    path('chef_all_orders/<int:order_id>', chef_order),
+    path('courier_all_orders', courier_all_orders),
+    path('courier_all_orders/<int:order_id>', courier_order)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

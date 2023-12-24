@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizz&Duck</title>
+    <link rel="stylesheet" href="/static/console/css/normalize.css">
+    <link rel="stylesheet" href="/static/console/css/style.css">
+    <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo flex">
+            <a href="/courier_all_orders"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
+            <a href="/courier_all_orders" class="header-text">Pizz&Duck</a>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container all-orders-container">
+            {% for order in orders %}
+            <a href="/courier_all_orders/{{ order.order_id }}">
+                <button class="btn-reset">
+                    <div class="order">
+                        <div class="order-title-content flex">
+                            <p class="order-title-content-style">Заказ №{{ order.order_id }}</p>
+                            <span class="order-content-style-address">{{ order.delivery_info.adress }}</span>
+                        </div>
+                    </div>
+                </button>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

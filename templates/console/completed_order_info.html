@@ -4,63 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizz&Duck</title>
-    <link rel="stylesheet" href="/console/css/normalize.css">
-    <link rel="stylesheet" href="/console/css/style.css">
+    <link rel="stylesheet" href="/static/console/css/normalize.css">
+    <link rel="stylesheet" href="/static/console/css/style.css">
+    <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
-<body class="order-body">
-    <header class="order-header">
-        <div class="order-header-content flex">
-            <div class="logo"></div>
-            <a href="login.html" class="text-logo">Pizz&Duck</a>
+<body>
+    <header class="header">
+        <div class="header-logo flex">
+            <a href="#"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
+            <a href="/manager" class="header-text">Pizz&Duck</a>
         </div>
     </header>
 
     <main class="main">
-        <div class="container order-content">
+        <div class="container completed-orders-container">
             <div class="completed-orders flex">
-                <a href="completed_orders.html" class="completed-orders-title">
-                    История выполненных заказов
-                </a>
+                <a href="/completed_orders" class="completed-orders-title">История выполненных заказов</a>
                 <svg class="completed-orders-logo" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1.5" y="12.1557" width="47" height="36.3443" fill="#B9D6A3" stroke="black" stroke-width="3"/>
-                    <line y1="8.6557" x2="50" y2="8.6557" stroke="black" stroke-width="4"/>
-                    <rect x="8.71924" y="0.5" width="4.47945" height="9.65574" fill="#B9D6A3" stroke="black"/>
-                    <rect x="37.4863" y="0.5" width="4.47945" height="9.65574" fill="#B9D6A3" stroke="black"/>
-                    <line y1="-1" x2="8.42145" y2="-1" transform="matrix(0.731986 0.68132 -0.544944 0.838473 17.8081 31.1476)" stroke="black" stroke-width="2"/>
-                    <line y1="-1" x2="15.8518" y2="-1" transform="matrix(0.561709 -0.827335 0.716954 0.69712 23.9727 36.8853)" stroke="black" stroke-width="2"/>
+                    <rect x="1.5" y="12.1557" width="47" height="36.3443" fill="#B9D6A3" stroke="black" stroke-width="3"></rect>
+                    <line y1="8.6557" x2="50" y2="8.6557" stroke="black" stroke-width="4"></line>
+                    <rect x="8.71924" y="0.5" width="4.47945" height="9.65574" fill="#B9D6A3" stroke="black"></rect>
+                    <rect x="37.4863" y="0.5" width="4.47945" height="9.65574" fill="#B9D6A3" stroke="black"></rect>
+                    <line y1="-1" x2="8.42145" y2="-1" transform="matrix(0.731986 0.68132 -0.544944 0.838473 17.8081 31.1476)" stroke="black" stroke-width="2"></line>
+                    <line y1="-1" x2="15.8518" y2="-1" transform="matrix(0.561709 -0.827335 0.716954 0.69712 23.9727 36.8853)" stroke="black" stroke-width="2"></line>
                 </svg>
             </div>
+
             <div class="completed-orders-list">
-                <div class="completed-orders-item flex">
-                    <div class="circle"></div>
-                    <span class="order-info-style completed-order-info-style">Заказ №10</span>
-                    <span class="order-info completed-order-info">ФИО повара</span>
-                    <a href="staff.html" class="completed-order-icon">
-                        <svg width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M198.5 100C198.5 154.4 154.4 198.5 100 198.5C45.5999 198.5 1.5 154.4 1.5 100C1.5 45.5999 45.5999 1.5 100 1.5C154.4 1.5 198.5 45.5999 198.5 100Z" fill="#999787" stroke="black" stroke-width="3"/>
-                            <path d="M131.287 86.4864C131.287 105.329 116.489 120.473 98.3933 120.473C80.298 120.473 65.5 105.329 65.5 86.4864C65.5 67.644 80.298 52.5 98.3933 52.5C116.489 52.5 131.287 67.644 131.287 86.4864Z" fill="#999787" stroke="black" stroke-width="5"/>
-                            <mask id="path-3-inside-1_82_322" fill="white">
-                            <path d="M170 161.487C170 156.429 168.189 151.421 164.672 146.748C161.154 142.076 155.998 137.83 149.497 134.254C142.997 130.677 135.281 127.841 126.788 125.905C118.295 123.97 109.193 122.973 100 122.973C90.8075 122.973 81.7049 123.97 73.2122 125.905C64.7194 127.841 57.0026 130.677 50.5025 134.254C44.0024 137.83 38.8463 142.076 35.3284 146.748C31.8106 151.421 30 156.429 30 161.487L100 161.487H170Z"/>
-                            </mask>
-                            <path d="M170 161.487C170 156.429 168.189 151.421 164.672 146.748C161.154 142.076 155.998 137.83 149.497 134.254C142.997 130.677 135.281 127.841 126.788 125.905C118.295 123.97 109.193 122.973 100 122.973C90.8075 122.973 81.7049 123.97 73.2122 125.905C64.7194 127.841 57.0026 130.677 50.5025 134.254C44.0024 137.83 38.8463 142.076 35.3284 146.748C31.8106 151.421 30 156.429 30 161.487L100 161.487H170Z" fill="#999787" stroke="black" stroke-width="10" mask="url(#path-3-inside-1_82_322)"/>
-                        </svg>
-                    </a>
-                </div>
+                <a href="/all_orders/{{ order.order_id }}" class="completed-order-link">
+                    <div class="completed-orders-item flex">
+                        <div class="circle"></div>
+                        <div class="flex">
+                            <span class="order-info-style completed-order-info-style">Заказ №{{ order.order_id }}</span>
+                            <span class="completed-order-info">{{ chef.name }}</span>
+                            <svg class="completed-order-icon" width="100" height="100" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <a href="/all_staff/{{ chef.worker_id }}">
+                                    <path d="M198.5 100C198.5 154.4 154.4 198.5 100 198.5C45.5999 198.5 1.5 154.4 1.5 100C1.5 45.5999 45.5999 1.5 100 1.5C154.4 1.5 198.5 45.5999 198.5 100Z" fill="#999787" stroke="black" stroke-width="3"></path>
+                                    <path d="M131.287 86.4864C131.287 105.329 116.489 120.473 98.3933 120.473C80.298 120.473 65.5 105.329 65.5 86.4864C65.5 67.644 80.298 52.5 98.3933 52.5C116.489 52.5 131.287 67.644 131.287 86.4864Z" fill="#999787" stroke="black" stroke-width="5"></path>
+                                    <mask id="path-3-inside-1_82_322" fill="white">
+                                    <path d="M170 161.487C170 156.429 168.189 151.421 164.672 146.748C161.154 142.076 155.998 137.83 149.497 134.254C142.997 130.677 135.281 127.841 126.788 125.905C118.295 123.97 109.193 122.973 100 122.973C90.8075 122.973 81.7049 123.97 73.2122 125.905C64.7194 127.841 57.0026 130.677 50.5025 134.254C44.0024 137.83 38.8463 142.076 35.3284 146.748C31.8106 151.421 30 156.429 30 161.487L100 161.487H170Z"></path>
+                                    </mask>
+                                    <path d="M170 161.487C170 156.429 168.189 151.421 164.672 146.748C161.154 142.076 155.998 137.83 149.497 134.254C142.997 130.677 135.281 127.841 126.788 125.905C118.295 123.97 109.193 122.973 100 122.973C90.8075 122.973 81.7049 123.97 73.2122 125.905C64.7194 127.841 57.0026 130.677 50.5025 134.254C44.0024 137.83 38.8463 142.076 35.3284 146.748C31.8106 151.421 30 156.429 30 161.487L100 161.487H170Z" fill="#999787" stroke="black" stroke-width="10" mask="url(#path-3-inside-1_82_322)"></path>
+                                </a>
+                            </svg>
+                        </div>  
+                    </div>
+                </a>
+                
                 <div class="order-rating flex">
                     <p class="order-info">Оценка:</p>
                     <div class="orders-stars">
-                        <img src="img/star.svg" alt="Rating: 5 of 5">
-                        <img src="img/star.svg" alt="">
-                        <img src="img/star.svg" alt="">
-                        <img src="img/star.svg" alt="">
-                        <img src="img/star.svg" alt="">
+                        <img src="/static/console/img/star.svg" alt="Rating: 5 of 5">
+                        <img src="/static/console/img/star.svg" alt="">
+                        <img src="/static/console/img/star.svg" alt="">
+                        <img src="/static/console/img/star.svg" alt="">
+                        <img src="/static/console/img/star.svg" alt="">
                     </div>
                 </div>
-                <p class="order-info">Отзыва клиента:</p>
-                <p class="order-info">Наименование товара:</p>
+                <div class="order-comment flex">
+                    <p class="order-info">Отзыва клиента:</p>
+                    <p class="comment-info"> Очень Вкусно!</p>
+                </div>
             </div>
         </div>
     </main>

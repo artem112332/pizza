@@ -14,8 +14,8 @@
 <body>
     <header class="header">
         <div class="header-logo flex">
-            <a href="/manager"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
-            <a href="/manager" class="header-text">Pizz&Duck</a>
+            <a href="/courier_all_orders"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
+            <a href="/courier_all_orders" class="header-text">Pizz&Duck</a>
         </div>
     </header>
 
@@ -25,27 +25,7 @@
             <div class="order-content flex">
                 <div class="order-content-left">
                     <p class="order-info">
-                        <span class="order-info-style">Повар:</span> {{ order.chef.full_name }}
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Клиент:</span> {{ customer.name }}
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Комментарий к заказу:</span>
-                        {% if order.comments != None %}
-                            {{ order.comments }}
-                        {% endif %}
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Стоимость:</span> {{ order.total_price }}
-                    </p>
-                </div>
-                <div class="order-content-right">
-                    <p class="order-info">
-                        <span class="order-info-style">Адрес доставки:</span> {{ delivery_info.adress }}
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Курьер:</span> {{ delivery_info.courier.name }}
+                        <span class="order-info-style">Клиент:</span> {{ order.customer.name }}
                     </p>
                     <p class="order-info flex">
                        <span class="order-info-style">Список пицц:&nbsp;&nbsp;</span>
@@ -54,6 +34,14 @@
                                 "{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.<br>
                             {% endif %}
                         {% endfor %}
+                    </p>
+                    <p class="order-info">
+                        <span class="order-info-style">Стоимость:</span> {{ order.total_price }}
+                    </p>
+                </div>
+                <div class="order-content-right">
+                    <p class="order-info">
+                        <span class="order-info-style">Адрес:</span> {{ order.delivery_info.adress }}
                     </p>
                 </div>
             </div>
