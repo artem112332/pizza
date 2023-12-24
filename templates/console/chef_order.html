@@ -27,19 +27,28 @@
             
             <div class="order-content flex">
                 <div>
+                {% if order.chef != None %}
                     <p class="order-info">
-                        <span class="order-info-style">Повар:</span> {{ order.chef.name }}
+                        <span class="order-info-style">Повар:</span>
+                        {{ order.chef.name }}
                     </p>
+                {% endif %}
+
 
                     <p class="order-info">
                        <span class="order-info-style">Список пицц:&nbsp;&nbsp;</span><br>
                         {% for pizza_name in pizzas %}
+                            <details>
                             {% if pizzas_amounts[pizza_name] > 0 %}
-                                "{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.:<br>
+                                <summary>"{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.:</summary><br>
                                 {% for key in recipes[pizza_name].keys() %}
-                                    {{ key }} - {{ recipes[pizza_name][key]}}г.<br>
+                                    {% if recipes[pizza_name][key] != None %}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ key }} - {{ recipes[pizza_name][key]}}г.<br>
+                                    {% endif %}
                                 {% endfor %}
+                                <br>
                             {% endif %}
+                            </details>
                         {% endfor %}
                     </p>
 
