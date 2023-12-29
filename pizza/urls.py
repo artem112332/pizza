@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('all_staff/<int:employee_id>', staff),
     path('all_orders/', all_orders),
     path('new_order/', new_order),
-    path('send_to_kitchen/<int:order_id>', send_to_kitchen),
+    path('new_order/send_to_kitchen/<int:order_id>', send_to_kitchen),
     path('all_orders/<int:order_id>', order),
     path('products/', products),
     path('completed_orders/', completed_orders),
@@ -37,6 +37,10 @@ urlpatterns = [
     path('completed_order_info/', completed_order_info),
     path('chef_all_orders/', chef_all_orders),
     path('chef_all_orders/<int:order_id>', chef_order),
+    path('chef_all_orders/set_ready/<int:order_id>', set_ready),
+    path('chef_all_orders/cancel/<int:order_id>', cancel),
+    path('chef_all_orders/take_order/<int:order_id>', take_order),
     path('courier_all_orders', courier_all_orders),
-    path('courier_all_orders/<int:order_id>', courier_order)
+    path('courier_all_orders/<int:order_id>', courier_order),
+    path('accounts/', include('django.contrib.auth.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

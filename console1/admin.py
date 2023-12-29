@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from console1.models import Worker, Order, Pizza, Product, Recipe, Customer, DeliveryInfo
+from console1.models import Employee, Order, Pizza, Product, Recipe, Customer, DeliveryInfo
 
-admin.site.register(Worker)
+admin.site.register(Employee)
 admin.site.register(Order)
 admin.site.register(Pizza)
 admin.site.register(Product)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizz&Duck</title>
+    <title>Заказ №{{ order.order_id }}</title>
     <link rel="stylesheet" href="/static/console/css/normalize.css">
     <link rel="stylesheet" href="/static/console/css/style.css">
     <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
@@ -26,21 +26,19 @@
             </div>
             
             <div class="order-content flex">
-                <div>
+                <div class="order-content-left">
                 {% if order.chef != None %}
                     <p class="order-info">
                         <span class="order-info-style">Повар:</span>
                         {{ order.chef.name }}
                     </p>
                 {% endif %}
-
-
                     <p class="order-info">
                        <span class="order-info-style">Список пицц:&nbsp;&nbsp;</span><br>
                         {% for pizza_name in pizzas %}
-                            <details>
                             {% if pizzas_amounts[pizza_name] > 0 %}
-                                <summary>"{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.:</summary><br>
+                            <details class="order-list-recipe">
+                                <summary class="order-item-recipe">"{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.:</summary><br>
                                 {% for key in recipes[pizza_name].keys() %}
                                     {% if recipes[pizza_name][key] != None %}
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ key }} - {{ recipes[pizza_name][key]}}г.<br>
@@ -51,22 +49,29 @@
                             </details>
                         {% endfor %}
                     </p>
-
                     <p class="order-info">
                         <span class="order-info-style">Комментарий к заказу:</span>
                         {% if order.comments != None %}
                             {{ order.comments }}
                         {% endif %}
                     </p>
-
                 </div>
+
                 <div class="order-content-right">
-                    <div class="status-order">
-                    <span>Готов</span>
-                    </div>
-                    <div class="status-order">
-                    <span>Отменить</span>
-                    </div>
+                {% if order.status == 'Ожидает' %}
+                    <form action="take_order/{{ order.order_id }}" method="get">
+                    <button name="sendbtn" type="submit" class="status-order">Взять
+                    </button>
+                    </form>
+                {% elif order.status == 'Готовится' %}
+                    <form action="set_ready/{{ order.order_id }}" method="get">
+                    <button name="sendbtn" type="submit" class="status-order">Готов</button>
+                    </form>
+                    <br>
+                    <form action="cancel/{{ order.order_id }}" method="get">
+                    <button name="sendbtn" type="submit" class="status-order">Отмена</button>
+                    </form>
+                {% endif %}
                 </div>
             </div>
         </div>

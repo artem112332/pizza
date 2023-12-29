@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizz&Duck</title>
+    <title>Новые заказы</title>
     <link rel="stylesheet" href="/static/console/css/normalize.css">
     <link rel="stylesheet" href="/static/console/css/style.css">
     <link type="Image/x-icon" href="/static/console/img/logo.svg" rel="icon">
@@ -89,7 +89,7 @@
                         </p>
                     </div>
                 </div>
-                <form action="/send_to_kitchen/{{ new_order.order_id }}" method="get">
+                <form action="send_to_kitchen/{{ new_order.order_id }}" method="get">
                 <button name="sendbtn" type="submit" class="new-order-btn btn-reset">Отправить заказ на кухню</button>
                 </form>
             {% endif %}
