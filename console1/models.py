@@ -74,7 +74,7 @@ class Order(models.Model):
         ('Готовится', 'Готовится'),
         ('Отменён', 'Отменён'),
         ('Готов', 'Готов'),
-        ('Доставляется', 'Доставляется'),
+        ('В доставке', 'В доставке'),
         ('Завершён', 'Завершён')
     ]
     status = models.CharField(max_length=15, blank=True, choices=StatusChoices, null=True)
@@ -90,6 +90,8 @@ class Order(models.Model):
     # Статуса "Оплачен" нет, потому что заказ в теории может быть оплачен как онлайн, так и наличными при получении
     chef = models.ForeignKey(Employee, to_field='worker_id', related_name='Worker.chef+', on_delete=models.SET_NULL,
                              blank=True, null=True)
+    rating = models.SmallIntegerField(blank=True, null=True)
+    feedback = models.CharField(max_length=200, blank=True, null=True)
     comments = models.CharField(db_column='Comments', max_length=200, blank=True, null=True)
 
     def __str__(self):

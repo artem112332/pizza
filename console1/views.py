@@ -19,6 +19,10 @@ recipes = {f'{recipe.pizza.name}': {f'{recipe.product_1}': recipe.product_1_amou
                                     f'{recipe.product_15}': recipe.product_15_amount
                                     } for recipe in Recipe.objects.all()}
 
+for key in recipes.keys():
+    recipe = recipes[key]
+    del recipe['None']
+
 
 def manager(request):
     return render(request, 'console/manager.html')
@@ -41,7 +45,7 @@ def all_orders(request):
     all_orders_list = Order.objects.all()
     orders = []
     for order_info in all_orders_list:
-        if order_info.status in ["Ожидает", "Готовится", "Отменён", "Готов"]:
+        if order_info.status in ["Ожидает", "Готовится", "Отменён", "Готов", "В доставке"]:
             orders.append(order_info)
     new_orders_count = Order.objects.filter(status='Принят').count()
 
@@ -153,13 +157,15 @@ def calculate_used_products(order_id):
 
     for pizza_name in cooked_pizzas:
         recipe = recipes[pizza_name]
-        del recipe['None']
         for product_name in recipe.keys():
-            used_products[product_name] = recipe[product_name] / 1000
+            if used_products.get(product_name) is None:
+                used_products[product_name] = recipe[product_name] / 1000
+            else:
+                used_products[product_name] += recipe[product_name] / 1000
 
     for product_name in used_products.keys():
         product = Product.objects.get(name=product_name)
-        product.amount -= used_products[product_name]
+        product.amount = round(product.amount - used_products[product_name], 3)
         product.save()
 
 
@@ -210,6 +216,15 @@ def courier_order(request, order_id):
 
     return render(request, 'console/courier_order.html',
                   context={'order': order_info, 'pizzas_amounts': pizzas_amounts, 'pizzas': pizzas_names})
+
+
+def pickup_order(request, order_id):
+    order_to_take = Order.objects.get(order_id=order_id)
+    order_to_take.status = 'В доставке'
+    order_to_take.save()
+    request.GET = '/courier_all_orders/'
+
+    return courier_all_orders(request)
 
 
 def login(request):
