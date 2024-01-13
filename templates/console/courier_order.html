@@ -12,43 +12,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="header-logo flex">
-            <a href="/courier_all_orders"><img class="logo" src="/static/console/img/logo-image.png" alt="Логотип Pizz&Duck"></a>
-            <a href="/courier_all_orders" class="header-text">Pizz&Duck</a>
-        </div>
-    </header>
+<header class="header">
+    <div class="header-logo flex">
+        <a href="/courier_all_orders"><img class="logo" src="/static/console/img/logo-image.png"
+                                           alt="Логотип Pizz&Duck"></a>
+        <a href="/courier_all_orders" class="header-text">Pizz&Duck</a>
+    </div>
+</header>
 
-    <main class="main">
-        <div class="container order-container">
-            <h2 class="order-title">Заказ №{{ order.order_id }}</h2>
-            <div class="order-content flex">
-                <div class="order-content-left">
-                    <p class="order-info">
-                        <span class="order-info-style">Клиент:</span> {{ order.customer.name }}
-                    </p>
-                    <p class="order-info flex">
-                       <span class="order-info-style">Список пицц:&nbsp;&nbsp;</span>
-                        {% for pizza_name in pizzas %}
-                            {% if pizzas_amounts[pizza_name] > 0 %}
-                                "{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.<br>
-                            {% endif %}
-                        {% endfor %}
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Стоимость:</span> {{ order.total_price }}
-                    </p>
-                </div>
-                <div class="order-content-right">
-                    <p class="order-info">
-                        <span class="order-info-style">Адрес:</span> {{ order.delivery_info.adress }}
-                    </p>
-                    <p class="order-info">
-                        <span class="order-info-style">Комментарий:</span> {{ order.delivery_info.comments }}
-                    </p>
-                </div>
+<main class="main">
+    <div class="container order-container">
+        <h2 class="order-title">Заказ №{{ order.order_id }}</h2>
+        <div class="order-content flex">
+            <div class="order-content-left">
+                <p class="order-info">
+                    <span class="order-info-style">Клиент:</span> {{ order.customer.name }}
+                </p>
+                <p class="order-info flex">
+                    <span class="order-info-style">Список пицц:&nbsp;&nbsp;</span>
+                    {% for pizza_name in pizzas %}
+                        {% if pizzas_amounts[pizza_name] > 0 %}
+                            "{{ pizza_name }}" - {{ pizzas_amounts[pizza_name] }} шт.<br>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="order-info">
+                    <span class="order-info-style">Стоимость:</span> {{ order.total_price }}
+                </p>
+            </div>
+            <div class="order-content-right">
+                <p class="order-info">
+                    <span class="order-info-style">Адрес:</span> {{ order.delivery_info.adress }}
+                </p>
+                <p class="order-info">
+                    <span class="order-info-style">Комментарий:</span> {{ order.delivery_info.comments }}
+                </p>
+                <form action="pickup_order/{{ order.order_id }}" method="get">
+                    <button name="sendbtn" type="submit" class="new-order-btn btn-reset">Забрать заказ</button>
+                </form>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 </html>

@@ -52,7 +52,7 @@
                                 <span class="order-content-style-cancel">{{ order.status }}</span>
                             {% elif order.status == 'Готов' %}
                                 <span class="order-content-style-ready">{{ order.status }}</span>
-                            {% elif order.status == 'Доставляется' %}
+                            {% elif order.status == 'В доставке' %}
                                 <span class="order-content-style-delivery">{{ order.status }}</span>
                             {% endif %}
                             <svg class="order-link-tick" width="56" height="31" viewBox="0 0 56 31" fill="none"

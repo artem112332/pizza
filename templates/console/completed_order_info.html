@@ -57,16 +57,14 @@
                 <div class="order-rating flex">
                     <p class="order-info">Оценка:</p>
                     <div class="orders-stars">
-                        <img src="/static/console/img/star.svg" alt="Rating: 5 of 5">
-                        <img src="/static/console/img/star.svg" alt="">
-                        <img src="/static/console/img/star.svg" alt="">
-                        <img src="/static/console/img/star.svg" alt="">
-                        <img src="/static/console/img/star.svg" alt="">
+                        {% for i in range(order.rating) %}
+                            <img src="/static/console/img/star.svg" alt="Rating: 5 of 5">
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="order-comment flex">
                     <p class="order-info">Отзыва клиента:</p>
-                    <p class="comment-info"> Очень Вкусно!</p>
+                    <p class="comment-info"> {{ order.feedback }}</p>
                 </div>
             </div>
         </div>
