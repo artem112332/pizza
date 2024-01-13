@@ -42,5 +42,6 @@ urlpatterns = [
     path('chef_all_orders/take_order/<int:order_id>', take_order),
     path('courier_all_orders', courier_all_orders),
     path('courier_all_orders/<int:order_id>', courier_order),
+    path('courier_all_orders/pickup_order/<int:order_id>', pickup_order),
     path('accounts/', include('django.contrib.auth.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
